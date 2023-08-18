@@ -1,9 +1,6 @@
 "use server";
 
-import { Task } from "@/lib/types";
 import { prisma } from "@/lib/db";
-
-let data: Task[] = [];
 
 const getAllTasks = async () => {
   const tasks = await prisma.task.findMany();
