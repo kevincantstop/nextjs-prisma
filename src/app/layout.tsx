@@ -1,8 +1,10 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import LocalFont from 'next/font/local'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = LocalFont({
+  src: '../../fonts/Inter.ttf',
+})
 
 export const metadata: Metadata = {
   title: 'Create Next App',
