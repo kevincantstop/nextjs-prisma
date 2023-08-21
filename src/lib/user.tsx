@@ -17,4 +17,12 @@ const registerUser = async (data: SignUpInputs) => {
   });
 };
 
-export { registerUser };
+const signInUser = (email: string, password: string) =>
+  prisma.user.findUnique({
+    where: {
+      email,
+      password,
+    },
+  });
+
+export { registerUser, signInUser };

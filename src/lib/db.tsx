@@ -1,7 +1,19 @@
 import { PrismaClient } from "@prisma/client";
 
 const prismaClientSingleton = () => {
-  return new PrismaClient();
+  const prisma = new PrismaClient({
+    log: [
+      {
+        emit: "event",
+        level: "query",
+      },
+    ],
+  });
+
+  prisma.$on("query", (e) => {
+    console.info("Query: " + e.query);
+  });
+  return prisma;
 };
 
 type PrismaClientSingleton = ReturnType<typeof prismaClientSingleton>;

@@ -12,8 +12,11 @@ export default function Page() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) =>
-    signIn("credentials", { ...data });
+  const onSubmit: SubmitHandler<Inputs> = async (data) =>
+    signIn("credentials", {
+      ...data,
+      callbackUrl: `/`,
+    });
 
   return (
     <div className={`flex h-screen`}>

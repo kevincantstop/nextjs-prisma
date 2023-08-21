@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { SignUpInputs as Inputs } from "@/lib/types";
 import { registerUser } from "@/lib/user";
+import { signIn } from "next-auth/react";
 
 export default function Page() {
   const {
@@ -12,7 +13,13 @@ export default function Page() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => registerUser(data);
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    await registerUser(data);
+    await signIn("credentials", {
+      ...data,
+      callbackUrl: `/`,
+    });
+  };
 
   return (
     <div className={`flex h-screen`}>
