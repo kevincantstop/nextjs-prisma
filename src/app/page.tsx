@@ -10,17 +10,21 @@ import {
   removeTask,
   clearTasks,
 } from "@/lib/todo";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [title, setTitle] = useState<string>("");
+  const { data: session } = useSession();
 
   useEffect(() => {
     (async () => {
-      const data = await getAllTasks();
-      setTasks(data);
+      if (session) {
+        const data = await getAllTasks();
+        setTasks(data);
+      }
     })();
-  }, []);
+  }, [session]);
 
   const onCreate = async () => {
     const data = await createTask(title);
