@@ -4,20 +4,27 @@
 
 /* width */
 ::-webkit-scrollbar {
-    @apply w-[5px]
+  @apply w-[5px];
 }
-  
+
 /* Track */
 ::-webkit-scrollbar-track {
-    @apply bg-stone-100 rounded-lg;
+  @apply bg-stone-100 rounded-lg;
 }
-  
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    @apply rounded-lg bg-stone-400;
+  @apply rounded-lg bg-stone-400;
 }
-  
+
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    @apply bg-stone-500;
+  @apply bg-stone-500;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
 }

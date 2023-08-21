@@ -13,13 +13,14 @@ export const authOptions: AuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
+        console.log(credentials);
         if (credentials?.email && credentials.password) {
           const user = await prisma.user.findUnique({
             where: {
               email: credentials.email,
-              password: credentials.password,
             },
           });
+          console.log(user);
           return user;
         }
         return null;
@@ -29,8 +30,11 @@ export const authOptions: AuthOptions = {
   session: {
     strategy: "jwt",
   },
+  pages: {
+    signIn: "/auth/signin",
+  },
   secret: process.env.NEXTAUTH_SECRET,
-  debug: process.env.NODE_ENV === "development",
+  debug: true,
 };
 
 const handler = NextAuth(authOptions);
