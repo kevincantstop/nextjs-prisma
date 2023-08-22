@@ -20,5 +20,5 @@ async function getTasks() {
   if (!session) {
     return redirect("/auth/signin");
   }
-  return getAllTasks();
+  return getAllTasks(session.user?.id!);
 }

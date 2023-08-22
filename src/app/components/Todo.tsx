@@ -3,36 +3,32 @@
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { Task } from "@/lib/types";
-import {
-  getAllTasks,
-  createTask,
-  completeTask,
-  removeTask,
-  clearTasks,
-} from "@/lib/todo";
+import { createTask, completeTask, removeTask, clearTasks } from "@/lib/todo";
+import { useSession } from "next-auth/react";
 
 export default function Todo({ data }: { data: Task[] }) {
   const [tasks, setTasks] = useState<Task[]>(data);
   const [title, setTitle] = useState<string>("");
+  const { data: session } = useSession();
 
   const onCreate = async () => {
-    const data = await createTask(title);
+    const data = await createTask(title, session?.user?.id!);
     setTasks(data);
     setTitle("");
   };
 
   const onComplete = async (task: Task) => {
-    const data = await completeTask(task.id);
+    const data = await completeTask(task.id, session?.user?.id!);
     setTasks(data);
   };
 
   const onDelete = async (task: Task) => {
-    const data = await removeTask(task.id);
+    const data = await removeTask(task.id, session?.user?.id!);
     setTasks(data);
   };
 
   const onClear = async () => {
-    const data = await clearTasks();
+    const data = await clearTasks(session?.user?.id!);
     setTasks(data);
   };
 
